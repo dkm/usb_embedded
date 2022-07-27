@@ -86,10 +86,15 @@ package body USB.Device.HID.Keyboard is
    procedure Send_Report (This : in out Instance;
                           UDC  : in out USB_Device_Controller'Class)
    is
+     Report : Report_Data (This.Report'Range)
+       with Address => This.Report_Buf;
    begin
-      Parent (This).Send_Report (UDC);
 
-      This.Key_Code_Index := 0;
+     --  Do not send the same report twice, only send state change
+     if Report /= This.report then
+       Parent (This).Send_Report (UDC);
+       This.Key_Code_Index := 0;
+     end if;
    end Send_Report;
 
    ----------------
