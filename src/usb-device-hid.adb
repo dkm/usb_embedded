@@ -118,7 +118,7 @@ package body USB.Device.HID is
          16#80# or UInt8 (This.EP), -- In EP
          3, -- Interrupt EP
          16#40#, 0, --  TODO: Max packet size
-         10 -- Polling interval
+         1 -- Polling interval
         );
    end Fill_Config_Descriptor;
 
